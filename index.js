@@ -1,5 +1,5 @@
-import { refreshTables } from "./javascript/helperTable.js";
-import { loadIconsIntoHeader } from "./javascript/index.js";
+import { updateTable } from "./javascript/helperTable.js";
+import { loadLogo } from "./javascript/index.js";
 
-loadIconsIntoHeader();
-refreshTables();
+loadLogo();
+updateTable();

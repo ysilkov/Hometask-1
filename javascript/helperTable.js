@@ -3,20 +3,21 @@ import { notes, categories } from "./data.js";
 import { archiveLogo, deleteLogo, editLogo, unArchiveLogo } from "./logo.js";
 import { deleteNote, changeArchiveState } from "./helperNote.js";
 
-export let statisticsTable = document.getElementById("stats-table"),
-  notesTable = document.getElementById("active-archive-table");
+export let archieveTable = document.getElementById("archieve-table"),
+  notesTable = document.getElementById("notes-table"),
+  deleteAll = document.getElementsByClassName("row-logo delete");
 export let activeNoteTableShown = true;
 
-export const refreshTables = () => {
+export const updateTable = () => {
   clearAllTables();
   buildNotesTable();
   buildStatisticTable();
 };
 
-function clearAllTables() {
+const clearAllTables = () => {
   clearInnerHTML(notesTable);
-  clearInnerHTML(statisticsTable);
-}
+  clearInnerHTML(archieveTable);
+};
 
 export const clearInnerHTML = (parent) => {
   while (parent.firstChild) parent.removeChild(parent.firstChild);
@@ -60,21 +61,21 @@ export const buildStatisticTable = () => {
     }
   });
 
-  statisticsTable.innerHTML += Ideas
+  archieveTable.innerHTML += Ideas
     ? buildStatTr("Idea", IdeasActive, Ideas)
     : ``;
-  statisticsTable.innerHTML += Quotes
+  archieveTable.innerHTML += Quotes
     ? buildStatTr("Quote", QuotesActive, Quotes)
     : ``;
-  statisticsTable.innerHTML += Tasks
+  archieveTable.innerHTML += Tasks
     ? buildStatTr("Task", TasksActive, Tasks)
     : ``;
-  statisticsTable.innerHTML += Thoughts
+  archieveTable.innerHTML += Thoughts
     ? buildStatTr("Random Thought", ThoughtsActive, Thoughts)
     : ``;
 };
 
-function buildStatTr(category, active, total) {
+const buildStatTr = (category, active, total) => {
   return `
         <tr>
             <td className="category-icon stats-icon"><div class="back-color">${
@@ -85,16 +86,16 @@ function buildStatTr(category, active, total) {
             <td className="archived">${total - active}</td>
         </tr>
     `;
-}
+};
 
-function buildNotesTable() {
+const buildNotesTable = () => {
   notes.forEach((note) => {
     if (!note.archived === activeNoteTableShown)
       notesTable.append(buildNotesTr(note));
   });
-}
+};
 
-function buildNotesTr(note) {
+const buildNotesTr = (note) => {
   let tr = document.createElement("tr");
   tr.id = note.id;
   tr.innerHTML = `
@@ -131,22 +132,27 @@ function buildNotesTr(note) {
 
   tr.append(tdEdit, tdArchive, tdDelete);
   return tr;
-}
+};
 
-function switchTables() {
+[].forEach.call(deleteAll, (el) => {
+  el.addEventListener("click", () => {
+    notes.length = 0;
+    updateTable();
+  });
+});
+
+const switchTables = () => {
   activeNoteTableShown = !activeNoteTableShown;
   clearInnerHTML(notesTable);
   buildNotesTable();
-  document.getElementById("announcer").innerText = activeNoteTableShown
+  document.getElementById("messange").innerText = activeNoteTableShown
     ? "Active notes"
     : "Archived notes";
-  document.getElementsByClassName("header-icon archive")[0].innerHTML =
+  document.getElementsByClassName("row-logo archive")[0].innerHTML =
     activeNoteTableShown ? archiveLogo : unArchiveLogo;
-}
+};
 
 document
-  .getElementById("table-switcher")
+  .getElementById("archive-switch")
   .addEventListener("click", switchTables);
-document
-  .getElementById("create-note-button")
-  .addEventListener("click", buildForm);
+document.getElementById("create-button").addEventListener("click", buildForm);

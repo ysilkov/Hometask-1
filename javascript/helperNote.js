@@ -1,17 +1,17 @@
 import { notes } from "./data.js";
 import {
-  refreshTables,
+    updateTable,
   clearInnerHTML,
-  statisticsTable,
+  archieveTable,
   buildStatisticTable,
   activeNoteTableShown,
 } from "./helperTable.js";
-import { showAnnouncer } from "./index.js";
+import { showMessage } from "./index.js";
 
 export const createNote = (note) => {
   notes.push(note);
-  refreshTables();
-  showAnnouncer("Note created successfully!");
+  updateTable();
+  showMessage("Note created");
 };
 
 export const updateNote = (note) => {
@@ -19,11 +19,11 @@ export const updateNote = (note) => {
     let index = notes.findIndex((n) => n.id === note.id);
     if (index < 0) throw "There is no such note!";
     notes.splice(index, 1, note);
-    refreshTables();
-    showAnnouncer("Note updated successfully!");
+    updateTable();
+    showMessage ("Note updated");
   } catch (e) {
     console.error(e);
-    showAnnouncer("Note wasn't updated!", true);
+    showMessage("Note wasn't updated", true);
   }
 };
 
@@ -33,20 +33,20 @@ export const deleteNote = (noteID) => {
     if (index < 0) throw "There is no such note!";
     notes.splice(index, 1);
     document.getElementById(noteID).remove();
-    clearInnerHTML(statisticsTable);
+    clearInnerHTML(archieveTable);
     buildStatisticTable();
-    showAnnouncer("Note deleted successfully!");
+    showMessage("Note deleted");
   } catch (e) {
     console.error(e);
-    showAnnouncer("Note wasn't updated!", true);
+    showMessage ("Note wasn't updated!", true);
   }
 };
 
 export const changeArchiveState = (note) => {
   notes[notes.findIndex((n) => n.id === note.id)].archived =
     !notes[notes.findIndex((n) => n.id === note.id)].archived;
-  refreshTables();
-  showAnnouncer(
-    `Note ${activeNoteTableShown ? "archived" : "unarchived"} successfully!`
+    updateTable ();
+    showMessage(
+    `Note ${activeNoteTableShown ? "archived" : "unarchived"}`
   );
 };

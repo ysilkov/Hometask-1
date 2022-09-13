@@ -13,13 +13,13 @@ main {
 .header {
   text-align: center;
 }
-#create-note {
+#notes {
   margin: 1em 0;
   display: flex;
   justify-content: end;
 }
 
-#create-note * {
+#notes * {
   font-size: 1em;
   margin-left: 2em;
   padding: 0.5em;
@@ -27,13 +27,14 @@ main {
   border-radius: 0.5em;
 }
 
-#create-note div {
+#notes div {
   opacity: 0;
   transition: opacity 1s;
 }
 
-#create-note button {
+#notes button {
   border: 1px solid;
+  cursor: pointer;
 }
 
 .wrapper-div {
@@ -68,7 +69,6 @@ form {
 form > *:not(:last-child) {
   margin-bottom: 0.5em;
 }
-
 input,
 select,
 textarea {
@@ -76,7 +76,6 @@ textarea {
   max-width: 100%;
   padding: 10px;
 }
-
 textarea {
   min-width: 100%;
   min-height: 4em;
@@ -87,7 +86,7 @@ textarea {
   border-color: crimson;
   background-color: rgba(220, 20, 60, 0.5);
 }
-.header__title {
+.header {
   text-align: center;
 }
 table {
@@ -115,9 +114,11 @@ tr th:last-child {
 .note-logo,
 .row-icon {
   fill: #424242;
+  cursor: pointer;
 }
-.header-icon {
+.row-logo {
   fill: var(--text-color);
+  cursor: pointer;
 }
 td,
 th {
@@ -128,7 +129,10 @@ th {
   text-overflow: ellipsis;
   height: 2em;
 }
-/*notes table*/
+.submit-button,
+.cancel {
+  cursor: pointer;
+}
 .created,
 .category1 {
   width: 8em;
@@ -137,7 +141,6 @@ th {
 .active-logo {
   width: 4em;
 }
-/*stats table*/
 .active,
 .archived {
   width: 20%;

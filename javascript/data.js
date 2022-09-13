@@ -33,7 +33,7 @@ export let notes = [
     category: "Idea",
     content: "Implement new applwcation on the 3/5/2021, show it from 5/5/2021",
     dates: "3/5/2021, 5/5/2021",
-    archived: false,
+    archived: true,
   },
   {
     id: "4",
@@ -42,7 +42,7 @@ export let notes = [
     category: "Quote",
     content: "Power doesn't have start",
     dates: "",
-    archived: true,
+    archived: false,
   },
   {
     id: "5",
@@ -51,6 +51,6 @@ export let notes = [
     category: "Task",
     content: "The Lean Statrup",
     dates: "",
-    archived: true,
+    archived: false,
   },
 ];

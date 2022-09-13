@@ -2,20 +2,20 @@ import { categories } from "./data.js";
 import { createNote, updateNote } from "./helperNote.js";
 import { archiveLogo, deleteLogo } from "./logo.js";
 
-export const loadIconsIntoHeader = () => {
-  Array.from(document.getElementsByClassName("header-icon")).forEach((col) => {
+export const loadLogo = () => {
+  Array.from(document.getElementsByClassName("row-logo")).forEach((col) => {
     if (col.classList.contains("archive")) col.innerHTML = archiveLogo;
     if (col.classList.contains("delete")) col.innerHTML = deleteLogo;
   });
 };
-export const showAnnouncer = (text, error) => {
-  let announcer = document.getElementById("announcer");
-  announcer.style.opacity = "1";
-  announcer.innerText = text;
-  if (error) announcer.classList.add("invalid-input");
+export const showMessage = (text, error) => {
+  let messange = document.getElementById("messange");
+  messange.style.opacity = "1";
+  messange.innerText = text;
+  if (error) messange.classList.add("invalid-input");
   setTimeout(() => {
-    announcer.style.opacity = "0";
-    if (error) announcer.classList.remove("invalid-input");
+    messange.style.opacity = "0";
+    if (error) messange.classList.remove("invalid-input");
   }, 1500);
 };
 
@@ -37,15 +37,17 @@ export const buildForm = (note) => {
     ) +
     `
         </select>
-        <textarea name="content" placeholder="Content">${
+        <textarea name="content" placeholder="Content" id="content">${
           note.content ? note.content : ""
         }</textarea>
         <input class="cancel" type="button" value="Cancel">
-        <input id="submit-button" type="submit" value="Submit" > 
+        <input class="submit-button" type="submit" value="Submit" > 
     `;
+
   form.getElementsByClassName("cancel")[0].addEventListener("click", () => {
     document.getElementsByClassName("wrapper-div")[0].remove();
   });
+
   const month = [
     "January",
     "February",
@@ -82,7 +84,6 @@ export const buildForm = (note) => {
 
     document.getElementsByClassName("wrapper-div")[0].remove();
   };
-
   let wrapperDiv = document.createElement("div");
   wrapperDiv.className = "wrapper-div";
   wrapperDiv.append(form);

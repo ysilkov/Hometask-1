@@ -113,18 +113,21 @@ const buildNotesTr = (note) => {
     tdDelete = document.createElement("td");
 
   tdEdit.className = "row-icon edit";
+  tdEdit.title = "edit";
   tdEdit.addEventListener("click", () => {
     buildForm(note);
   });
   tdEdit.innerHTML = editLogo;
 
   tdArchive.className = "row-icon archive";
+  tdArchive.title = "archive";
   tdArchive.addEventListener("click", () => {
     changeArchiveState(note);
   });
   tdArchive.innerHTML = activeNoteTableShown ? archiveLogo : unArchiveLogo;
 
   tdDelete.className = "row-icon delete";
+  tdDelete.title = "delete";
   tdDelete.addEventListener("click", () => {
     deleteNote(note.id);
   });
